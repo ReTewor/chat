@@ -1,0 +1,148 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>Чат бот для студентов</title>
+  <style>
+    .main__inner {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .chat-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      width: 100%;
+      max-width: 600px;
+      height: 60vh;
+      overflow-y: auto;
+      background: transparent;
+      padding: 20px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      background-color: rgba(255, 255, 255, 0.8);
+    }
+
+    .entry__field {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      max-width: 600px;
+      height: 79px;
+    }
+
+    #request {
+      width: 100%;
+      height: 100%;
+      padding-left: 10px;
+      border: none;
+      outline: none;
+      appearance: none;
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px;
+      font-size: 30px;
+      font-family: Cuprum;
+      font-weight: 400;
+      line-height: 40px;
+      text-align: left;
+      background: rgb(255, 255, 255);
+    }
+
+    .submit-btn {
+      height: 100%;
+      color: rgb(126, 58, 167);
+      font-family: Cuprum;
+      font-size: 35px;
+      font-weight: 400;
+      text-align: center;
+      background-color: #fff;
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
+      border: none;
+      cursor: pointer;
+      padding-right: 10px;
+    }
+    .robot-pic {
+      margin-right: 10px;
+      padding-left: 100px;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header__inner">
+        <div class="header__logo">
+          <a class="logo-pic" href="{% url 'home' %}">
+              <img src="{% static 'img/Чат бот.svg' %}" alt="">
+          </a>
+        </div>
+        <nav class="nav">
+          <a class="nav__link" href="examples__of__dialogs.html">Примеры диалогов</a>
+          <a class="nav__link" href="information__about__bot.html">Информация о чат боте</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+  <main class="main">
+    <div class="container">
+      <div class="main__inner">
+        <div class="chat-container" id="chat-container">
+          <!-- Отображение сообщений из localStorage -->
+        </div>
+        <div class="entry__field">
+          <input type="text" placeholder="Введите вопрос..." name="request" id="request">
+          <button class="submit-btn" id="submit-btn">Отправить</button>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      // Получаем сообщения из localStorage и отображаем их при загрузке страницы
+      var storedMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+      for (var i = 0; i < storedMessages.length; i++) {
+        $('#chat-container').append(storedMessages[i]);
+      }
+
+      $('#submit-btn').click(function(){
+        var userInput = $('#request').val();
+        $('#chat-container').append('<p><strong>Вы:</strong> ' + userInput + '</p>');
+        $('#request').val('');
+
+        // Сохраняем новое сообщение в localStorage
+        var newMessage = '<p><strong>Вы:</strong> ' + userInput + '</p>';
+        storedMessages.push(newMessage);
+        localStorage.setItem('chatMessages', JSON.stringify(storedMessages));
+
+        $.ajax({
+          type: 'POST',
+          url: '',  // Укажите URL, по которому будет отправляться запрос на сервер
+          data: {
+            'message': userInput,
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+          },
+          success: function(data){
+            var botResponse = '<p><strong>Василиса:</strong> ' + data.response + '</p>';
+            $('#chat-container').append(botResponse);
+
+            // Сохраняем ответ бота в localStorage
+            storedMessages.push(botResponse);
+            localStorage.setItem('chatMessages', JSON.stringify(storedMessages));
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

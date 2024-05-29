@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <title>Примеры диалогов</title>
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header__inner">
+        <div class="header__logo">
+          <a href="{% url 'home' %}">
+              <img src="{% static 'img/Чат бот.svg' %}" alt="">
+          </a>
+        </div>
+        <nav class="nav">
+          <a class="nav__link" href="examples__of__dialogs.html">Примеры диалогов</a>
+          <a class="nav__link" href="information__about__bot.html">Информация о чат боте</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+  <main class="main__examples">
+    <div class="container">
+      <div class="row">
+        <h2 class="main__examples__title">Примеры диалогов с ботом</h2>
+      </div>
+        <div class="row">
+          <div class="col-md-6 col-sm-12 dialog__1">
+            <p class="text-left user__dialog"><span class="user__word">Пользователь:</span> Что такое контрольные точки?</p>
+            <p class="text-left bot__dialog"><span class="chat__bot__word">Василиса:</span> В нашем университете действует балльно-рейтинговая система, поэтому по каждому предмету установлены контрольные точки. Контрольная точка - это числовой показатель твоей успеваемости по предмету. Существует проходной балл для получения
+            зачёта. Он прописан в ЕТИСе.</p>
+          </div>
+          <div class="col-md-6 col-sm-12 dialog__2">
+            <p class="text-left user__dialog"><span class="user__word">Пользователь:</span> Что такое абьюз?</p>
+            <p class="text-left bot__dialog"><span class="chat__bot__word">Василиса:</span> Абьюз - это физическое, психологическое или финансовое насилие одного партнёра над другим.</p>
+            <p class="text-left bot__dialog"><span class="user__word">Пользователь:</span> Как понять, что отношения абьюзивны?</p>
+            <p class="text-left bot__dialog"><span class="chat__bot__word">Василиса:</span> В абьюзивных отношениях присутствует модель «агрессор — жертва». Жертва обычно находится в зависимости от агрессора, и в процессе абьюза он стремится эту зависимость усилить.</p>
+          </div>
+          <div class="col-md-6 col-sm-12 dialog__3">
+            <p class="text-left user__dialog"><span class="user__word">Пользователь:</span> Что такое буллинг?</p>
+            <p class="text-left bot__dialog"><span class="chat__bot__word">Василиса:</span> Буллинг — это проявление постоянной агрессии, направленной на одного и того же человека. По сути — издевательство, травля. Это довольно широкое понятие, которое включает в себя разные виды насилия: физическое, эмоциональное, экономическое, а также кибербуллинг. От конфликта или ссоры отличается тем, что может длиться месяцами. </p>
+          </div>
+          <div class="col-md-6 col-sm-12 dialog__4">
+            <p class="text-left user__dialog"><span class="user__word">Пользователь:</span> Как добраться до университета?</p>
+            <p class="text-left bot__dialog"><span class="chat__bot__word">Василиса:</span> Вы можете доехать до остановки «Пермь 2»: на автобусах 1, 2, 6, 40, 49, 50, 54, 56, 64, 68, 81, 88
+              на трамваях 5, 7. Затем пройти под аркой и следовать указателям «Пермский государственный национальный исследовательских университет»</p>
+          </div>
+        </div>
+        <div class="home__btn__examples">
+          <a class="home__btn__link" href="{% url 'home' %}">Начать диалог с ботом</a>
+        </div>
+    </div>
+  </main>
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>
