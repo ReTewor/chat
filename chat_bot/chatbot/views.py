@@ -6,8 +6,8 @@ import time
 
 client = Client(api_key="")
 
-assistant_id = "asst_cI5lIigjxrS2vgiEANNPZqXz"
-thread_id = "thread_363bm0CIuPY4FfzuzFWajSuf"
+assistant_id = ""
+thread_id = ""
 
 def home(request):
     if request.method == 'POST':
